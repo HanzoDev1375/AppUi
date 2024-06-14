@@ -1,0 +1,28 @@
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+    google()
+    mavenCentral()
+    jcenter()
+    
+  }
+}
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    jcenter()
+    maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+  }
+}
+
+
+rootProject.name = "UI Designer"
+include ':app'
+
+include(':ui-designer')
+include(':vectormaster')
+include(':webview')

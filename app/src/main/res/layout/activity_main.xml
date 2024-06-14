@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+         xmlns:tools="http://schemas.android.com/tools"
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             app:titleEnabled="false"
+             app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 tools:subtitle="v1.0 [arm64-v8a]"
+                 tools:title="UI Designer"
+                 android:id="@+id/toolbar" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+         android:layout_height="0dp"
+         android:layout_width="match_parent"
+         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+         android:layout_weight="1"
+         android:id="@+id/recycler_view" />
+
+    <Button
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginEnd="8dp"
+         android:layout_marginStart="8dp"
+         android:id="@+id/openWebView"
+         android:text="WebView Example" />
+
+</LinearLayout>

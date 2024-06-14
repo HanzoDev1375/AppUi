@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="App UI Designer"
+        android:name=".App"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+        
+    >
+
+        <activity
+            android:name="com.mcal.example.MainActivity"
+            android:exported="true"
+            
+        >
+
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            
+        >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                
+            />
+        </provider>
+
+    </application>
+
+</manifest>
