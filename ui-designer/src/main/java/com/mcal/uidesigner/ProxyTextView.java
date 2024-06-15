@@ -1,14 +1,9 @@
-package com.mcal.uidesigner.proxy;
-
-import static com.mcal.uidesigner.utils.Utils.getAttr;
-import static com.mcal.uidesigner.utils.Utils.getStyle;
+package com.mcal.uidesigner;
 
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.widget.TextView;
-
-import androidx.core.widget.TextViewCompat;
 
 public class ProxyTextView {
     public static final int INPUTTYPE_date = 20;
@@ -60,29 +55,24 @@ public class ProxyTextView {
     private String fontFamily = null;
 
     public ProxyTextView(Object obj) {
-        textView = (TextView) obj;
+        this.textView = (TextView) obj;
     }
 
     public void setInputType(int type) {
-        textView.setInputType(type);
+        this.textView.setInputType(type);
     }
 
     public void setTextAppearance(String value) {
         try {
-            if (value.startsWith("@android:style/")) {
-                int styleID = getStyle(value);
-                if (styleID >= 0) {
-                    TextViewCompat.setTextAppearance(textView, styleID);
+            if (value.startsWith("?android:attr/")) {
+                int attrID = (Integer) android.R.attr.class.getField(value.substring("?android:attr/".length())).get(null);
+                Resources.Theme theme = this.textView.getContext().getTheme();
+                TypedValue styleID = new TypedValue();
+                if (theme.resolveAttribute(attrID, styleID, true)) {
+                    this.textView.setTextAppearance(this.textView.getContext(), styleID.data);
                 }
-            } else {
-                int attrID = getAttr(value);
-                if (attrID >= 0) {
-                    Resources.Theme theme = textView.getContext().getTheme();
-                    TypedValue styleID = new TypedValue();
-                    if (theme.resolveAttribute(attrID, styleID, true)) {
-                        TextViewCompat.setTextAppearance(textView, styleID.data);
-                    }
-                }
+            } else if (value.startsWith("@android:style/")) {
+                textView.setTextAppearance(textView.getContext(), (Integer) R.style.class.getField(value.substring("@android:style/".length()).replace(".", "_")).get(null));
             }
         } catch (Throwable th) {
             th.printStackTrace();
@@ -90,31 +80,31 @@ public class ProxyTextView {
     }
 
     public void setShadowRadius(float val) {
-        shadowRadius = val;
+        this.shadowRadius = val;
         updateShadow();
     }
 
     public void setShadowDx(float val) {
-        shadowDx = val;
+        this.shadowDx = val;
         updateShadow();
     }
 
     public void setShadowDy(float val) {
-        shadowDy = val;
+        this.shadowDy = val;
         updateShadow();
     }
 
     public void setShadowColor(int color) {
-        shadowColor = color;
+        this.shadowColor = color;
         updateShadow();
     }
 
     private void updateShadow() {
-        textView.setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor);
+        this.textView.setShadowLayer(this.shadowRadius, this.shadowDx, this.shadowDy, this.shadowColor);
     }
 
     public void setTextStyle(int style) {
-        textStyle = style;
+        this.textStyle = style;
         updateFont();
     }
 
@@ -124,14 +114,14 @@ public class ProxyTextView {
     }
 
     public void setFontFamily(String family) {
-        fontFamily = family;
+        this.fontFamily = family;
         updateFont();
     }
 
     private void updateFont() {
         Typeface tf = null;
-        if (fontFamily == null || (tf = Typeface.create(fontFamily, textStyle)) == null) {
-            switch (typeface) {
+        if (this.fontFamily == null || (tf = Typeface.create(this.fontFamily, this.textStyle)) == null) {
+            switch (this.typeface) {
                 case 1:
                     tf = Typeface.SANS_SERIF;
                     break;
@@ -142,9 +132,9 @@ public class ProxyTextView {
                     tf = Typeface.MONOSPACE;
                     break;
             }
-            textView.setTypeface(tf, textStyle);
+            this.textView.setTypeface(tf, this.textStyle);
             return;
         }
-        textView.setTypeface(tf);
+        this.textView.setTypeface(tf);
     }
 }

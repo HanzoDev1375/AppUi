@@ -27,9 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.mcal.uidesigner.appwizard.AppWizardDesignActivity;
 import com.mcal.uidesigner.common.MessageBox;
 import com.mcal.uidesigner.common.ValueRunnable;
@@ -42,6 +40,9 @@ import java.util.List;
 import java.util.Map;
 
 public class XmlLayoutWidgetPicker {
+
+  public static String MATCHPARANT = "match_parent";
+  public static String WRAPCONTENT = "wrap_content";
 
   public static void selectRootView(Activity activity, String title, ValueRunnable<NewWidget> ok) {
     selectView(activity, title, false, true, ok);
@@ -432,7 +433,7 @@ public class XmlLayoutWidgetPicker {
                       (int) (context.getResources().getDisplayMetrics().density));
                 }
               };
-          view.setBackground(
+          view.setBackgroundDrawable(
               context
                   .obtainStyledAttributes(new int[] {android.R.attr.dividerVertical})
                   .getDrawable(0));
@@ -641,15 +642,21 @@ public class XmlLayoutWidgetPicker {
     TableLayout("TableLayout", "Advanced Layout"),
     TableRow("TableRow", "Advanced Layout"),
     AbsoluteLayout("AbsoluteLayout", "Advanced Layout"),
-    ViewPager("View Pager", "Google Material", "android.support.v4.widget.ViewPager"),
-    RecyclerView(
-        "Recycler View",
+    // Android V4: App Layout
+    DrawerLayout("Drawer Layout", "App Layout", "android.support.v4.widget.DrawerLayout"),
+    ViewPager("View Pager", "App Layout", "android.support.v4.widget.ViewPager"),
+    MaterialCard(
+        "MaterialCard", "Google Material", "com.google.android.material.card.MaterialCardView"),
+    TextInputEditText(
+        "TextInput EditText",
         "Google Material",
-        "androidx.recyclerview.widget.RecyclerView",
-        "android:layout_height",
-        "wrap_content",
-        "android:layout_width",
-        "match_parent"),
+        "com.google.android.material.textfield.TextInputEditText"),
+
+    TextInputLayout(
+        "Textinput Layout",
+        "Google Material",
+        "com.google.android.material.textfield.TextInputLayout"),
+
     MaterialSwitch(
         "Material Switch",
         "Google Material",
@@ -659,7 +666,52 @@ public class XmlLayoutWidgetPicker {
         "android:layout_width",
         "match_parent",
         "android:text",
-        "Ghost web ui");
+        "Ghost web ui"),
+    MaterialButton(
+        "Button", "Google Material", "com.google.android.material.button.MaterialButton"),
+
+    MaterialCheckBox(
+        "CheckBox", "Google Material", "com.google.android.material.checkbox.MaterialCheckBox"),
+
+    MaterialRadioButton(
+        "RadioButton",
+        "Google Material",
+        "com.google.android.material.radiobutton.MaterialRadioButton"),
+
+    MaterialProgressBar(
+        "ProgressBar",
+        "Google Material",
+        "com.google.android.material.progressindicator.LinearProgressIndicator",
+        "android:indeterminate",
+        "true"),
+    MaterialChipGroup(
+        "ChipGroup",
+        "Google Material",
+        "com.google.android.material.chip.ChipGroup",
+        "android:layout_width",
+        MATCHPARANT,
+        "android:layout_height",
+        WRAPCONTENT),
+    MaterialChip(
+        "Chip",
+        "Google Material",
+        "com.google.android.material.chip.Chip",
+        "android:layout_width",
+        WRAPCONTENT,
+        "android:layout_height",
+        WRAPCONTENT,
+        "android:text",
+        "test"),
+    MaterialCircularProgressIndicator(
+        "CircularProgressIndicator",
+        "Google Material",
+        "com.google.android.material.progressindicator.CircularProgressIndicator",
+        "android:layout_width",
+        WRAPCONTENT,
+        "android:layout_height",
+        WRAPCONTENT,
+        "android:indeterminate",
+        "true");
 
     private final Map<String, String> attributes;
     private final String category;
@@ -708,7 +760,7 @@ public class XmlLayoutWidgetPicker {
     }
 
     public boolean isAppLayout() {
-      return "Google Material".equals(this.category);
+      return "App Layout".equals(this.category);
     }
 
     public boolean isRootView() {
@@ -719,7 +771,8 @@ public class XmlLayoutWidgetPicker {
       return "Layout".equals(this.category)
           || "Advanced Layout".equals(this.category)
           || "Scroll View".equals(this.category)
-          || "Google Material".equals(this.category);
+          || "App Layout".equals(this.category)
+          || "Google Material".equals(category);
     }
 
     public String getCategory() {

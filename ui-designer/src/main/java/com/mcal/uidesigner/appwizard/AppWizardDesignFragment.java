@@ -48,7 +48,7 @@ public class AppWizardDesignFragment extends Fragment {
         if (!(getUndoManager() == null || inflater == null)) {
             getUndoManager().removeListener(inflater);
         }
-        inflater = new XmlLayoutlInflater(layoutContainer, xmlFilePath, resDirPath, getUndoManager(),null) {
+        inflater = new XmlLayoutlInflater(layoutContainer, xmlFilePath, resDirPath, getUndoManager()) {
             @Override
             protected void onEmptyLayoutClicked() {
                 XmlLayoutWidgetPicker.selectRootView(getActivity(), "Add...", widget -> inflater.addView(widget));
@@ -70,7 +70,6 @@ public class AppWizardDesignFragment extends Fragment {
             @Override
             protected void onInflated() {
             }
-      
         };
         inflater.init();
         inflater.setShowBorder(false);
