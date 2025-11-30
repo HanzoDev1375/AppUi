@@ -1,7 +1,7 @@
 [![](https://jitpack.io/v/TimScriptov/App-UI-Designer.svg)](https://jitpack.io/#TimScriptov/App-UI-Designer)
 
 # Note
-- This is the last relic of the legendary Borken Kalaf player and also a clever programmer. Do not touch the codes in this repository. It is a relic.
+- This is the last relic of the legendary Borken Call of Duty Mobile player and also a clever programmer. Do not touch the codes in this repository. It is a relic.
 
 
 # Screenshots
